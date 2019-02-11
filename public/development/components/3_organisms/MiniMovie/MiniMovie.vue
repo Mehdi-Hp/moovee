@@ -1,50 +1,50 @@
 <template>
-	<div class="mini-movie">
-		<div class="mini-movie__figure">
+	<div class="miniMovie">
+		<div class="miniMovie__figure">
 			<div
-				class="mini-movie__poster"
+				class="miniMovie__poster"
 				:style="posterImage"
 			>
-				<div class="mini-movie__rate">
+				<div class="miniMovie__rate">
 					{{ rate }}
 				</div>
 			</div>
-			<div class="mini-movie__states">
+			<div class="miniMovie__states">
 				<div
 					v-if="heart"
-					class="mini-movie__state | mini-movie__state--heart"
+					class="miniMovie__state | miniMovie__state--heart"
 				>
 					<icon name="heart" />
 				</div>
 				<div
 					v-if="watched"
-					class="mini-movie__state | mini-movie__state--watched"
+					class="miniMovie__state | miniMovie__state--watched"
 				>
 					<icon name="double-check" />
 				</div>
 				<div
 					v-if="later"
-					class="mini-movie__state | mini-movie__state--later"
+					class="miniMovie__state | miniMovie__state--later"
 				>
 					<icon name="flag" />
 				</div>
 			</div>
 		</div>
-		<div class="mini-movie__details">
-			<div class="mini-movie__detail">
-				<div class="mini-movie__text-info | mini-movie__text-info--title">{{ title }}</div>
-				<div class="mini-movie__text-info | mini-movie__text-info--year">{{ year }}</div>
+		<div class="miniMovie__details">
+			<div class="miniMovie__detail">
+				<div class="miniMovie__textInfo | miniMovie__textInfo--title">{{ title }}</div>
+				<div class="miniMovie__textInfo | miniMovie__textInfo--year">{{ year }}</div>
 			</div>
-			<div class="mini-movie__detail">
-				<div class="mini-movie__text-info | mini-movie__text-info--director">{{ director }}</div>
+			<div class="miniMovie__detail">
+				<div class="miniMovie__textInfo | miniMovie__textInfo--director">{{ director }}</div>
 			</div>
-			<mini-movie-awards :awards="awards"/>
+			<miniMovie-awards :awards="awards"/>
 		</div>
 	</div>
 </template>
 
 <script>
-import MiniMovieAwards from './MiniMovie__Awards.vue';
+import MiniMovieAwards from './MiniMovie.Awards.vue';
 
 export default {
 	name: 'MiniMovie',
@@ -110,7 +110,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.mini-movie {
+.miniMovie {
 	box: vertical;
 
 	&__figure {
@@ -123,7 +123,7 @@ export default {
 		background-size: 100%;
 		background-repeat: no-repeat;
 		position: relative;
-		box-shadow: $mini-movie__box-shadow;
+		box-shadow: $miniMovie__box-shadow;
 		&:before {
 			display: block;
 			content: '';
@@ -173,7 +173,7 @@ export default {
 	&__details {
 		width: 250px;
 		padding: $gutter--thin;
-		color: $mini-movie__details-color;
+		color: $miniMovie__details-color;
 		font-family: $secondary-typeface;
 		font-weight: 500;
 	}
@@ -183,22 +183,22 @@ export default {
 		margin-bottom: $gutter--thinner;
 	}
 
-	&__text-info {
+	&__textInfo {
 		text-transform: capitalize;
 
 		&--title {
 			font-family: $default-typeface;
-			color: $mini-movie__title-color;
+			color: $miniMovie__title-color;
 		}
 
 		&--year {
 			font-size: ms(-1);
-			color: mix($background-color, $mini-movie__details-color, 60%);
+			color: mix($background-color, $miniMovie__details-color, 60%);
 		}
 
 		&--director {
 			font-size: 0.9em;
-			color: mix($background-color, $mini-movie__details-color, 20%);
+			color: mix($background-color, $miniMovie__details-color, 20%);
 		}
 	}
 }

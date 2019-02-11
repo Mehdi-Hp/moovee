@@ -1,16 +1,16 @@
 <template>
 	<div
-		class="miniMovie:Awards"
+		class="miniMovieAwards"
 	>
 		<div
-			class="miniMovie:Awards__awardHolder"
+			class="miniMovieAwards__awardHolder"
 			v-for="(award, awardIndex) in importantAwards"
 			:key="`${award.name}_${awardIndex}`"
 		>
 			<icon
 				v-if="award.name"
 				:name="award.iconName"
-				class="miniMovie:Awards__awardIcon"
+				class="miniMovieAwards__awardIcon"
 			/>
 		</div>
 	</div>
@@ -54,7 +54,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.miniMovie\:Awards {
+.miniMovieAwards {
 	box: left top;
 
 	&__awardHolder {
