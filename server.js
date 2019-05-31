@@ -1,17 +1,17 @@
+require('dotenv').config();
+
 const Hapi = require('hapi');
-const Inert = require('inert');
 const path = require('path');
 const chalk = require('chalk');
 const debug = require('debug')('app:server');
+const HapiSwagger = require('hapi-swagger');
 
-require('./services/database').connect();
-require('./services/cloudinary').init();
+const Pack = require('./package');
 
-const initAuth = require('./services/auth');
-
-const {
-	server: { port, host }
-} = require('./config/appConf');
+const { connect: connectToDatabase } = require('~services/database');
+const { start: connectToCDN } = require('~services/cdn');
+const { host, port } = require('~config/server');
+const { isDevelopment } = require('~utils/getEnvironmentMode');
 
 const server = new Hapi.Server({
 	port,
@@ -21,37 +21,54 @@ const server = new Hapi.Server({
 	},
 	routes: {
 		files: {
-			relativeTo: path.join(__dirname, 'public', 'production')
+			relativeTo: path.join(__dirname, 'files')
 		}
 	}
 });
 
 const start = async () => {
 	try {
-		await server.register(Inert);
+		await connectToDatabase({
+			debug: isDevelopment
+		});
+		connectToCDN();
 
 		await server.register([
 			{
+				plugin: require('inert')
+			},
+			{
+				plugin: require('@hapi/vision')
+			},
+			{
+				plugin: HapiSwagger,
+				options: {
+					info: {
+						title: 'moovee API Documentation',
+						version: Pack.version
+					}
+				}
+			},
+			{
 				plugin: require('hapi-dev-errors'),
 				options: {
-					showErrors: true
+					showErrors: isDevelopment
 				}
 			},
 			{
 				plugin: require('hapi-boom-decorators')
 			},
 			{
-				plugin: require('hapi-auth-jwt2')
-			},
-			{
-				plugin: require('./routes/index.js')
+				plugin: require('./routes')
 			}
 		]);
-		await initAuth(server);
+
 		await server.start();
-		debug(chalk.bold.underline.cyan(`Server running at: ${server.info.uri}`));
+
+		debug(chalk.underline.cyan(`Server running at ${host}:${port}`));
+		debug(chalk.underline.cyan(`API documentation is serving at http://${host}:${port}/documentation`));
 	} catch (error) {
-		debug(chalk.bold.underline.cyan(`Error starting server: ${error}`));
+		console.error(error);
 		process.exit(1);
 	}
 };

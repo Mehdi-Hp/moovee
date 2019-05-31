@@ -4,22 +4,10 @@ module.exports = {
 	async register(server, options) {
 		await server.register([
 			{
-				plugin: require('./users'),
+				plugin: require('./movies'),
 				routes: {
-					prefix: '/api'
+					prefix: '/api/v1/movies'
 				}
-			},
-			{
-				plugin: require('./files'),
-				routes: {
-					prefix: '/files'
-				}
-			},
-			{
-				plugin: require('./auth')
-			},
-			{
-				plugin: require('./static')
 			}
 		]);
 	}

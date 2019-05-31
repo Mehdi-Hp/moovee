@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 const timestamps = require('mongoose-timestamp');
 
+const actorSchema = require('~models/schema/actor');
+const awardsSchema = require('~models/schema/awards');
+
 const movieSchema = new mongoose.Schema({
 	title: {
 		type: String,
@@ -52,15 +55,16 @@ const movieSchema = new mongoose.Schema({
 		{ _id: false }
 	),
 
-	plot: new mongoose.Schema(
-		{
-			simple: String,
-			full: String
-		},
-		{ _id: false }
-	),
+	plot: {
+		_id: false,
+		simple: String,
+		full: String
+	},
 
-	trailer: String,
+	trailer: {
+		type: String,
+		trim: true
+	},
 
 	languages: {
 		type: [String],
@@ -80,93 +84,31 @@ const movieSchema = new mongoose.Schema({
 		trim: true
 	},
 
-	budget: String,
+	budget: {
+		type: String,
+		trim: true
+	},
 
 	directors: [String],
 
 	writers: [String],
 
-	actors: [
-		new mongoose.Schema(
-			{
-				name: {
-					type: String,
-					lowercase: true,
-					trim: true
-				},
-				character: {
-					type: String,
-					lowercase: true,
-					trim: true
-				},
-				picture: {
-					type: String,
-					lowercase: true,
-					trim: true
-				}
-			},
-			{ _id: false }
-		)
-	],
+	actors: [actorSchema],
 
-	awards: {
-		summary: {
-			type: String,
-			trim: true
+	awards: awardsSchema,
+
+	state: {
+		_id: false,
+		loading: {
+			type: Boolean
 		},
-		full: [
-			new mongoose.Schema(
-				{
-					name: {
-						type: String,
-						lowercase: true,
-						trim: true
-					},
-					title: {
-						type: String,
-						lowercase: true,
-						trim: true
-					},
-					year: {
-						type: Number,
-						trim: true
-					},
-					outcomes: [
-						new mongoose.Schema(
-							{
-								result: {
-									type: String,
-									lowercase: true,
-									trim: true
-								},
-								award: {
-									type: String,
-									lowercase: true,
-									trim: true
-								},
-								category: {
-									type: String,
-									lowercase: true,
-									trim: true
-								},
-								participants: {
-									type: [String],
-									lowercase: true,
-									trim: true
-								}
-							},
-							{ _id: false }
-						)
-					]
-				},
-				{ _id: false }
-			)
-		]
-	},
-
-	loading: Boolean,
-	fulfilled: Boolean,
-	updating: Boolean
+		fulfilled: {
+			type: Boolean
+		},
+		updating: {
+			type: Boolean
+		}
+	}
 });
 
 movieSchema.plugin(timestamps);
