@@ -185,7 +185,7 @@
 		"mini-css-extract-plugin": "^0.7.0",
 		"modularscale-sass": "^3.0.8",
 		"node-notifier": "^5.2.1",
-		"node-sass": "^4.9.4",
+		"node-sass": "^7.0.0",
 		"postcss": "^7.0.5",
 		"postcss-all-link-colors": "^2.0.0",
 		"postcss-animations": "^7.0.1",
