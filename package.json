@@ -109,7 +109,7 @@
 		"sass": "^1.17.0",
 		"serve-favicon": "~2.5.0",
 		"serve-index": "^1.9.1",
-		"sharp": "^0.22.1",
+		"sharp": "^0.30.5",
 		"shortid": "^2.2.13",
 		"simple-vue-validator": "^0.16.0",
 		"slug": "^1.1.0",
