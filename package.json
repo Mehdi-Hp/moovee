@@ -87,7 +87,7 @@
 		"jsonwebtoken-refresh": "^5.7.0",
 		"lodash": "^4.17.11",
 		"lodash-for-vue": "^1.0.3",
-		"mongoose": "^5.3.4",
+		"mongoose": "^5.7.5",
 		"mongoose-slug-hero": "^1.1.1",
 		"mongoose-times": "^0.1.0",
 		"mongoose-timestamp": "^0.6.0",
