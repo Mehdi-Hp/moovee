@@ -83,7 +83,7 @@
 		"is-undefined": "^1.0.9",
 		"isemail": "^3.2.0",
 		"joi": "^14.0.0",
-		"jsonwebtoken": "^8.3.0",
+		"jsonwebtoken": "^9.0.0",
 		"jsonwebtoken-refresh": "^5.7.0",
 		"lodash": "^4.17.11",
 		"lodash-for-vue": "^1.0.3",
